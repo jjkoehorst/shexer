@@ -7,5 +7,7 @@ class GzFileLineReader(object):
 
     def read_lines(self):
         with gzip.open(self._gz_file, "r") as in_stream:
-            for a_line in in_stream:
+            for index, a_line in enumerate(in_stream):
+                if index % 1000000 == 0:
+                    print(f"Processed {index} lines")
                 yield a_line.decode("utf-8")
